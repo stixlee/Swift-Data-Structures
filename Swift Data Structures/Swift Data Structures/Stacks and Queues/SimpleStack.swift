@@ -25,7 +25,7 @@ public class SimpleStack<Element> {
 
     public convenience init() { self.init(with: [Element]() ) }
     
-    public func push(item: Element) { backingStore.append(item) }
+    public func push(_ item: Element) { backingStore.append(item) }
     
     public func pop() -> Element? {
         guard backingStore.count > 0 else { return nil }
