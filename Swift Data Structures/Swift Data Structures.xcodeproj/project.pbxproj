@@ -50,12 +50,36 @@
 		7FFD34102109224100028461 /* Swift Data Structures */ = {
 			isa = PBXGroup;
 			children = (
-				7FFD34192109226A00028461 /* LinkedList.swift */,
-				7FFD341A2109226B00028461 /* Node.swift */,
+				7FFD341F210922DE00028461 /* Stacks and Queues */,
+				7FFD341E210922D300028461 /* LinkedLists */,
+				7FFD341D210922C100028461 /* Nodes */,
 				7FFD34112109224100028461 /* Swift_Data_Structures.h */,
 				7FFD34122109224100028461 /* Info.plist */,
 			);
 			path = "Swift Data Structures";
+			sourceTree = "<group>";
+		};
+		7FFD341D210922C100028461 /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				7FFD341A2109226B00028461 /* Node.swift */,
+			);
+			path = Nodes;
+			sourceTree = "<group>";
+		};
+		7FFD341E210922D300028461 /* LinkedLists */ = {
+			isa = PBXGroup;
+			children = (
+				7FFD34192109226A00028461 /* LinkedList.swift */,
+			);
+			path = LinkedLists;
+			sourceTree = "<group>";
+		};
+		7FFD341F210922DE00028461 /* Stacks and Queues */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Stacks and Queues";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
