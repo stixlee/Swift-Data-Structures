@@ -9,12 +9,13 @@
 import Foundation
 
 // A generic Node class for linked lists (standard & double)
-public class Node<T: Comparable> {
+// Used by LinkedLists.  Internal to library
+class Node<T: Comparable> {
+    
     var element: T
     var next: Node?
     var previous: Node?
     
-    init(with element: T) {
-        self.element = element
-    }
+    init(with element: T) { self.element = element }
+    
 }

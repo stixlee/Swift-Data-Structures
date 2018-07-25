@@ -6,12 +6,14 @@
 //  Copyright © 2018 Michael Lee. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 // Iterator class for a LinkedList.  Iterate over every Node in
-// The Linkedist starting at the head of the list
-class LinkedListIterator<T: Comparable>: IteratorProtocol {
-    typealias Element = T
+// The Linkedist starting at the head of the list.
+
+public class LinkedListIterator<T: Comparable>: IteratorProtocol {
+    
+    public typealias Element = T
     var linkedList: LinkedList<Element>
     var current: Node<Element>?
 
@@ -20,7 +22,7 @@ class LinkedListIterator<T: Comparable>: IteratorProtocol {
         self.current = linkedList.head
     }
     
-    func next() -> Element? {
+    public func next() -> Element? {
         let item = current?.element
         current = current?.next
         return item
@@ -32,18 +34,18 @@ class LinkedListIterator<T: Comparable>: IteratorProtocol {
 // Linked List is ordered but non non-indexed.
 // For indexed operations, convert the LinkedList
 // to an array (by calling the asArray() function).
-class LinkedList<T: Comparable> {
+//
+// Public class
+public class LinkedList<T: Comparable> {
     
-    var head: Node<T>?
+    fileprivate var head: Node<T>?
     
-    var tail: Node<T>?
+    private var tail: Node<T>?
     
-    var isEmpty: Bool {
-        return head == nil
-    }
+    public var isEmpty: Bool { return head == nil }
     
     // Order(N)
-    var count: Int {
+    public var count: Int {
         guard let first = head else { return 0 }
         var count = 1
         var node = first
@@ -54,12 +56,15 @@ class LinkedList<T: Comparable> {
         return count
     }
     
-    init(with element: T) {
+    public var first: T? { return head?.element }
+    public var last: T? { return tail?.element }
+    
+    public init(with element: T) {
         self.head = Node<T>(with: element)
         self.tail = self.head
     }
     
-    convenience init?(from array: [T]) {
+    public convenience init?(from array: [T]) {
         guard array.count > 0 else { return nil }
         self.init(with: array[0])
         
@@ -75,7 +80,7 @@ class LinkedList<T: Comparable> {
 // MARK - Order(1) Operations
 extension LinkedList {
 
-    func append(element: T) {
+    public func append(element: T) {
         guard let last = tail else {
             head = Node<T>(with: element)
             tail = head
@@ -85,7 +90,7 @@ extension LinkedList {
         tail = last.next
     }
     
-    func prepend(element: T) {
+    public func prepend(element: T) {
         guard head != nil else {
             head = Node<T>(with: element)
             tail = head
@@ -101,7 +106,7 @@ extension LinkedList {
 // MARK - Order(N) Pperations
 extension LinkedList {
 
-    func insert(newElement: T, after element: T) -> Bool {
+    public func insert(newElement: T, after element: T) -> Bool {
         guard var current = head else { return false }
         while true {
             if current.element == element { //Match
@@ -118,7 +123,7 @@ extension LinkedList {
         return false
     }
     
-    func insert(newElement: T, before element: T) -> Bool {
+    public func insert(newElement: T, before element: T) -> Bool {
         guard let first = head else { return false }
         if first.element == element {
             prepend(element: newElement)
@@ -137,7 +142,7 @@ extension LinkedList {
         return false
     }
     
-    func remove(element: T) -> T? {
+    public func remove(element: T) -> T? {
         guard let first = head else { return nil }
         if first.element == element {
             if tail != nil && head === tail { tail = first.next}
@@ -157,7 +162,7 @@ extension LinkedList {
     }
     
     //Order(N*2)
-    func asArray() -> [T] {
+    public func asArray() -> [T] {
         var array = [T]()
         for item in self {
             array.append(item)
@@ -169,7 +174,7 @@ extension LinkedList {
 
 // MARK - Sequence Conformity
 extension LinkedList: Sequence {
-    func makeIterator() -> LinkedListIterator<T> {
+    public func makeIterator() -> LinkedListIterator<T> {
         return LinkedListIterator<T>(self)
     }
 
