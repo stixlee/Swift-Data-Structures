@@ -106,6 +106,7 @@ extension LinkedList {
 // MARK - Order(N) Pperations
 extension LinkedList {
 
+    @discardableResult
     public func insert(newElement: T, after element: T) -> Bool {
         guard var current = head else { return false }
         while true {
@@ -123,6 +124,7 @@ extension LinkedList {
         return false
     }
     
+    @discardableResult
     public func insert(newElement: T, before element: T) -> Bool {
         guard let first = head else { return false }
         if first.element == element {
@@ -142,6 +144,7 @@ extension LinkedList {
         return false
     }
     
+    @discardableResult
     public func remove(element: T) -> T? {
         guard let first = head else { return nil }
         if first.element == element {

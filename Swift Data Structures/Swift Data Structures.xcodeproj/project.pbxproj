@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7FEE944E2109340100021F1F /* SimpleThreadSafeRingBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FEE944D2109340100021F1F /* SimpleThreadSafeRingBuffer.swift */; };
 		7FFD34132109224100028461 /* Swift_Data_Structures.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FFD34112109224100028461 /* Swift_Data_Structures.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7FFD341B2109226B00028461 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFD34192109226A00028461 /* LinkedList.swift */; };
 		7FFD341C2109226B00028461 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FFD341A2109226B00028461 /* Node.swift */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7FEE944D2109340100021F1F /* SimpleThreadSafeRingBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleThreadSafeRingBuffer.swift; sourceTree = "<group>"; };
 		7FFD340E2109224100028461 /* Swift_Data_Structures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Swift_Data_Structures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FFD34112109224100028461 /* Swift_Data_Structures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Swift_Data_Structures.h; sourceTree = "<group>"; };
 		7FFD34122109224100028461 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -35,6 +37,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7FEE944C210933AC00021F1F /* Ring Buffers */ = {
+			isa = PBXGroup;
+			children = (
+				7FEE944D2109340100021F1F /* SimpleThreadSafeRingBuffer.swift */,
+			);
+			path = "Ring Buffers";
+			sourceTree = "<group>";
+		};
 		7FFD34042109224000028461 = {
 			isa = PBXGroup;
 			children = (
@@ -54,6 +64,7 @@
 		7FFD34102109224100028461 /* Swift Data Structures */ = {
 			isa = PBXGroup;
 			children = (
+				7FEE944C210933AC00021F1F /* Ring Buffers */,
 				7FFD341F210922DE00028461 /* Stacks and Queues */,
 				7FFD341E210922D300028461 /* LinkedLists */,
 				7FFD34112109224100028461 /* Swift_Data_Structures.h */,
@@ -160,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7FFD341B2109226B00028461 /* LinkedList.swift in Sources */,
+				7FEE944E2109340100021F1F /* SimpleThreadSafeRingBuffer.swift in Sources */,
 				7FFD34212109239700028461 /* SimpleStack.swift in Sources */,
 				7FFD341C2109226B00028461 /* Node.swift in Sources */,
 				7FFD342521092CF900028461 /* SimpleQueue.swift in Sources */,
