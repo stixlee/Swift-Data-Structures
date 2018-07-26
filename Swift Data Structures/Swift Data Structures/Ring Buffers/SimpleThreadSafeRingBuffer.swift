@@ -12,22 +12,20 @@ let minimumRingBufferSize = 10
 
 public class SimpleThreadSafeRingBuffer<Element> {
     
+    public var isEmpty: Bool { return writeHead == readHead && backingStore[readHead] == nil }
+    public var isFull: Bool { return backingStore[writeHead] != nil }
     
-    var isEmpty: Bool { return writeHead == readHead }
-    
-
     private var backingStore: [Element?]
     private var size: Int { return backingStore.count }
     private var wrappedWriteHead: Int = 0
     private var wrappedReadHead: Int = 0
-    private var readWriteQueue = DispatchQueue(label: "com.stixlee.ringbuffer-read-write-queue",
-                                               attributes: [])
+    private var readWriteQueue = DispatchQueue(label: "com.stixlee.ringbuffer-read-write-queue")
     private let readWriteLock = DispatchSemaphore(value: 1)
-
+    
     private var writeHead: Int {
         get { return wrappedWriteHead }
         set {
-            if newValue > size {
+            if newValue > size-1 {
                 wrappedWriteHead = 0
             } else {
                 wrappedWriteHead = newValue
@@ -38,14 +36,14 @@ public class SimpleThreadSafeRingBuffer<Element> {
     private var readHead: Int {
         get { return wrappedReadHead }
         set {
-            if newValue > size {
+            if newValue > size-1 {
                 wrappedReadHead = 0
             } else {
                 wrappedReadHead = newValue
             }
         }
     }
-
+    
     
     public init?(size: Int) {
         guard size >= minimumRingBufferSize else { return nil }
@@ -57,11 +55,13 @@ public class SimpleThreadSafeRingBuffer<Element> {
         self.backingStore = array
     }
     
-    public func write(element: Element) {
-        readWriteQueue.async { self.atomicWrite(element: element ) }
+    public func write(element: Element, completion: @escaping (Bool) -> Void ) {
+        readWriteQueue.async {
+            self.atomicWrite(element: element, completion: completion)
+        }
     }
     
-    public func read(completion: @escaping (Element?) -> Void ) {
+    public func read(completion: @escaping (Element?, Bool) -> Void ) {
         readWriteQueue.async {
             self.atomicRead(completion: completion)
         }
@@ -71,22 +71,29 @@ public class SimpleThreadSafeRingBuffer<Element> {
 // MARK - private methods
 extension SimpleThreadSafeRingBuffer {
     
-    private func atomicWrite(element: Element) {
+    private func atomicWrite(element: Element, completion: (Bool) -> Void ) {
         readWriteLock.wait()
         defer { readWriteLock.signal() }
-        backingStore[writeHead] = element
-        writeHead += 1
+        if backingStore[writeHead] == nil {
+            backingStore[writeHead] = element
+            writeHead += 1
+            completion(true)
+            
+        } else {
+            completion(false)
+        }
     }
     
-    private func atomicRead(completion: (Element?) -> Void  ) {
+    private func atomicRead(completion: (Element?, Bool) -> Void  ) {
         readWriteLock.wait()
         defer { readWriteLock.signal() }
-        if self.isEmpty {
-            completion(nil)
+        let element: Element? = backingStore[readHead]
+        if element == nil {
+            completion(nil, false)
             return
         }
-        let element: Element? = backingStore[readHead]
+        backingStore[readHead] = nil
         readHead += 1
-        completion(element)
+        completion(element,true)
     }
 }
